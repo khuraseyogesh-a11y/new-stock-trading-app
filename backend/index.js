@@ -12,6 +12,8 @@ const app= express();
 const PORT=process.env.PORT || 8080;
 const Url=process.env.MONGO_URL;
 const session=require("express-session");
+const {MongoStore} = require("connect-mongo");
+
 const passport=require("passport");
 const LocalStrategy=require("passport-local");
 const { FundsModel } = require("./Models/FundsModel");
@@ -24,7 +26,19 @@ app.use(cors({
 }));
 app.use(bodyParser.json());
 app.use(express.json());
+
+const store= MongoStore.create({
+  mongoUrl:Url,
+  crypto :{
+    secret :process.env.SECRET
+  },
+  touchAfter:24 * 3600
+}) 
+store.on("error",()=>{
+  console.log("error in mongo session store");
+})
 app.use(session({
+    store,
     secret:process.env.SECRET,
     resave:false,
     saveUninitialized:false

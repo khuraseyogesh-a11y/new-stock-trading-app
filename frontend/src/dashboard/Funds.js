@@ -1,3 +1,4 @@
+
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import AddFunds from "./AddFunds";
@@ -10,7 +11,7 @@ let[account, setAccount]=useState();
 
 
 useEffect(()=>{
-   axios.get("http://localhost:8080/funds",{
+   axios.get(`${process.env.REACT_APP_API_URL}/funds`,{
     withCredentials:true,
   }).then((res)=>{
     setAccount(res.data);
@@ -20,7 +21,7 @@ useEffect(()=>{
 
 
 async function handleCreateButton(){
- await axios.post("http://localhost:8080/account",{},{
+ await axios.post(`${process.env.REACT_APP_API_URL}/account`,{},{
   withCredentials:true,
  })
 }

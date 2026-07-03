@@ -1,3 +1,4 @@
+
 import axios from "axios";
 import React from "react";
 import { useEffect } from "react";
@@ -8,13 +9,13 @@ const Summary = () => {
   const [stock,setStock]=useState([]);
   const[account,setAccount]=useState();
   useEffect(()=>{
-    axios.get("http://localhost:8080/allHoldings",{
+    axios.get(`${process.env.REACT_APP_API_URL}/allHoldings`,{
       withCredentials:true,
     }).then((res)=>{
       setStock(res.data);
     });
 
-    axios.get("http://localhost:8080/funds",{
+    axios.get(`${process.env.REACT_APP_API_URL}/funds`,{
     withCredentials:true,
   }).then((res)=>{
     setAccount(res.data);

@@ -1,3 +1,4 @@
+
 import React, { useState,useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
@@ -13,7 +14,7 @@ const navigate = useNavigate();
    e.preventDefault();
    console.log("yes button clicked");
     axios.post(
-  "http://localhost:8080/login",
+  `${process.env.REACT_APP_API_URL}/login`,
   {
     username:username,
     password:password,

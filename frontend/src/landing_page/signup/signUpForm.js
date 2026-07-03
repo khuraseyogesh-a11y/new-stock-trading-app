@@ -1,3 +1,4 @@
+
 import React from "react";
 import { useState ,useEffect} from "react";
 import axios from "axios";
@@ -8,7 +9,7 @@ export function SignUpForm(){
   let [password,setPassword]=useState("");
 
   function handleFormSubmit(){
-    axios.post("http://localhost:8080/signup",{
+    axios.post(`${process.env.REACT_APP_API_URL}/signup`,{
       username:username,
       email,email,
       password,password,

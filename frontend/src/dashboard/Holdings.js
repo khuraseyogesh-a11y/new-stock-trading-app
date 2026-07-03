@@ -1,3 +1,4 @@
+
 import React from "react";
 import axios from "axios";
 import { useState } from "react";
@@ -8,7 +9,7 @@ const Holdings = () => {
 let[allHoldings ,setAllHoldings]=useState([]);
 
 useEffect(()=>{
-  axios.get("http://localhost:8080/allHoldings",{
+  axios.get(`${process.env.REACT_APP_API_URL}/allHoldings`,{
     withCredentials:true
   }).then((res)=>{
     setAllHoldings(res.data);

@@ -1,3 +1,4 @@
+
 import React from "react";
 import { Link } from "react-router-dom";
 import { useState,useEffect } from "react";
@@ -7,7 +8,7 @@ const Orders = () => {
 let [allOrders , setAllOrders]=useState([]);
 
 useEffect(()=>{
-  axios.get("http://localhost:8080/allOrders",{
+  axios.get(`${process.env.REACT_APP_API_URL}/allOrders`,{
       withCredentials:true
   }).then((res)=>{
     setAllOrders(res.data);
