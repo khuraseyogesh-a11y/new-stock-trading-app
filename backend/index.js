@@ -311,7 +311,11 @@ app.post("/logout", (req, res, next) => {
                 return next(err);
             }
 
-            res.clearCookie("connect.sid");
+            res.clearCookie("connect.sid",{
+                httpOnly: true,
+                secure: true,
+                sameSite: "none"
+            });
             res.status(200).json({
                 success: true,
                 message: "Logged out successfully"
