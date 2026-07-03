@@ -19,14 +19,13 @@ const LocalStrategy=require("passport-local");
 const { FundsModel } = require("./Models/FundsModel");
 
 
-
 app.use(cors({
     origin: process.env.CLIENT_URL,
     credentials: true
 }));
 app.use(bodyParser.json());
 app.use(express.json());
-
+app.set("trust proxy", 1);
 const store= MongoStore.create({
   mongoUrl:Url,
   crypto :{
@@ -41,7 +40,13 @@ app.use(session({
     store,
     secret:process.env.SECRET,
     resave:false,
-    saveUninitialized:false
+    saveUninitialized:false,
+    cookie: {
+        httpOnly: true,
+        secure: true,          
+        sameSite: "none",     
+        maxAge: 7 * 24 * 60 * 60 * 1000
+    }
 }));
 
 
