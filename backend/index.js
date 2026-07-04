@@ -58,6 +58,20 @@ passport.serializeUser(UserModel.serializeUser());
 passport.deserializeUser(UserModel.deserializeUser());
 
 
+app.get("/me", (req, res) => {
+    console.log("req.user =", req.user);
+    console.log("req.session =", req.session);
+    console.log("passport =", req.session.passport);
+    console.log("authenticated =", req.isAuthenticated());
+
+    res.json({
+        user: req.user,
+        session: req.session,
+        passport: req.session.passport,
+        authenticated: req.isAuthenticated()
+    });
+});
+
 
 app.get("/allHoldings", async (req,res)=>{
   let id=req.user._id;
