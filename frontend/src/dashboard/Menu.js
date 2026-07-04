@@ -11,7 +11,7 @@ function handleMenuClick(index){
 }
 
 async function handleLogoutClick(index){
-  await axios.post("http://localhost:8080/logout",{},{
+  await axios.post(`${process.env.REACT_APP_API_URL}/logout`,{},{
     withCredentials:true
   }).then((res)=>{
     if(res.data.success){

@@ -26,9 +26,6 @@ const navigate = useNavigate();
 ).then((res)=>{
   console.log(res.data);
   if(res.data.success){
-    axios.get("https://new-stock-trading-app.onrender.com/me", {
-    withCredentials: true,
-});
     navigate("/dashboard");
   }
   
@@ -42,7 +39,7 @@ const navigate = useNavigate();
         console.log(err.response?.data);
     });
 
-// console.log(response.data);
+
 
   }
 
