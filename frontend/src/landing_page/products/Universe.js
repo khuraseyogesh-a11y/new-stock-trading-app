@@ -46,7 +46,7 @@ function Universe() {
                 </div>
             </div>
             <div className='row p-5'>
-                 <button className='btn btn-primary col-2 fs-6' style={{margin:"0 auto"}}>Sign up now</button>
+                <Link to='/signup'> <button className='btn btn-primary col-2 fs-6' style={{margin:"0 auto"}}>Sign up now</button></Link>
             </div>
 
         </div>
