@@ -45,8 +45,10 @@ function Universe() {
                      
                 </div>
             </div>
-            <div className='row p-5 ' style={{display:'flex', justifyContent:"center",alignItems:"center"}}>
-                <Link to='/signup'> <button className='btn btn-primary col-2 fs-6' style={{margin:"0 auto"}}>Sign up now</button></Link>
+            <div className='row p-5 justify-content-center '>
+                <div className='col-auto'> 
+                <Link to='/signup'> <button className='btn btn-primary  fs-6' style={{margin:"0 auto"}}>Sign up now</button></Link>
+                </div>
             </div>
 
         </div>
