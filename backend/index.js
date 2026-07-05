@@ -16,6 +16,7 @@ const {MongoStore} = require("connect-mongo");
 
 const passport=require("passport");
 const LocalStrategy=require("passport-local");
+const isLoggedIn=require("./Middleware/auth");
 const { FundsModel } = require("./Models/FundsModel");
 
 
@@ -60,7 +61,7 @@ passport.deserializeUser(UserModel.deserializeUser());
 
 
 
-app.get("/allHoldings", async (req,res)=>{
+app.get("/allHoldings",isLoggedIn, async (req,res)=>{
   let id=req.user._id;
   let allHoldings= await  HoldingsModel.find({userID:id});
   res.json(allHoldings);
@@ -68,14 +69,14 @@ app.get("/allHoldings", async (req,res)=>{
 })
 
 
-app.get("/positions",async(req,res)=>{
+app.get("/positions",isLoggedIn,async(req,res)=>{
   let positions= await PositionsModel.find({});
   res.json(positions);
   
 })
 
 
-app.get("/allOrders",async(req,res)=>{
+app.get("/allOrders",isLoggedIn,async(req,res)=>{
   let id=req.user._id;
   console.log(id);
   let allOrders= await OrdersModel.find({userID : id});
@@ -85,7 +86,7 @@ app.get("/allOrders",async(req,res)=>{
 
 
 
-app.post("/newOrder",async(req,res)=>{
+app.post("/newOrder",isLoggedIn,async(req,res)=>{
   let orgPrice=req.body.orgPrice;
   let userPrice=req.body.price;
   if(orgPrice > userPrice ){
@@ -98,7 +99,7 @@ app.post("/newOrder",async(req,res)=>{
     
   });
   
- console.log("Authenticated:", req.isAuthenticated());
+
      await newOrder.save();
   res.send("susscesfull");
   }else{
@@ -111,7 +112,7 @@ app.post("/newOrder",async(req,res)=>{
     
   });
   
- console.log("Authenticated:", req.isAuthenticated());
+ 
      await newOrder.save();
   res.send("susscesfull");
 
@@ -150,7 +151,7 @@ await HoldingsModel.findOneAndUpdate(
 
 
 
-app.post("/sellOrder",async(req,res)=>{
+app.post("/sellOrder",isLoggedIn,async(req,res)=>{
   let orgPrice=req.body.originalPrice;
   let userPrice=req.body.price;
   
@@ -164,7 +165,7 @@ app.post("/sellOrder",async(req,res)=>{
     
   });
 
- console.log("Authenticated:", req.isAuthenticated());
+ 
      await newOrder.save();
   
   }else{
@@ -177,7 +178,7 @@ app.post("/sellOrder",async(req,res)=>{
     
   });
 
- console.log("Authenticated:", req.isAuthenticated());
+ 
      await newOrder.save();
 
   let id= req.user._id;
@@ -265,7 +266,7 @@ app.post("/login", (req, res,next) => {
 
 
 
-app.get("/funds",async(req,res)=>{
+app.get("/funds",isLoggedIn,async(req,res)=>{
   console.log(req.user);
   let id=req.user._id;
   let funds= await FundsModel.findOne({userID:id});
@@ -275,7 +276,7 @@ app.get("/funds",async(req,res)=>{
 
 
 
-app.post("/account",async(req,res)=>{
+app.post("/account",isLoggedIn,async(req,res)=>{
   console.log(req.user);
   let id=req.user._id;
   let fund=new FundsModel({
